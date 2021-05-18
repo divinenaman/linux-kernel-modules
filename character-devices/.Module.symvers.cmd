@@ -1,0 +1,1 @@
+cmd_/home/naman/linux-kernel-modules/character-devices/Module.symvers := sed 's/ko$$/o/' /home/naman/linux-kernel-modules/character-devices/modules.order | scripts/mod/modpost  -a   -o /home/naman/linux-kernel-modules/character-devices/Module.symvers -e -i Module.symvers   -T -

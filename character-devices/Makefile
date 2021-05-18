@@ -1,5 +1,5 @@
 ccflags-y = -std=gnu99
-obj-m += kit.ko
+obj-m += kit.o
 
 all:
 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules

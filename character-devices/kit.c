@@ -8,6 +8,13 @@
 #include <linux/fs.h>
 #include <asm/uaccess.h>	/* for put_user */
 
+#define AUTHOR "NAMAN AGARWAL"
+#define DESP "CHARACTER DEVICE"
+
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR(AUTHOR);
+MODULE_DESCRIPTION(DESP);
+MODULE_VERSION("1.0");
 
 int init_module(void);
 void cleanup_module(void);
@@ -17,7 +24,7 @@ static ssize_t device_read(struct file *, char *, size_t, loff_t *);
 static ssize_t device_write(struct file *, const char *, size_t, loff_t *);
 
 #define SUCCESS 0
-#define DEVICE_NAME "infectedDevice"	/* Dev name as it appears in /proc/devices   */
+#define DEVICE_NAME "tty"	/* Dev name as it appears in /proc/devices   */
 #define BUF_LEN 80		/* Max length of the message from the device */
 
 /* 
@@ -43,7 +50,7 @@ static struct file_operations fops = {
 int init_module(void)
 {       
         // registering a character device
-        Major = register_chrdev(0, DEVICE_NAME, &fops);
+        Major = register_chrdev(4, DEVICE_NAME, &fops);
 
 	if (Major < 0) {
 	  printk(KERN_ALERT "Registering char device failed with %d\n", Major);
@@ -66,9 +73,9 @@ void cleanup_module(void)
 	/* 
 	 * Unregister the device 
 	 */
-	int ret = unregister_chrdev(Major, DEVICE_NAME);
-	if (ret < 0)
-		printk(KERN_ALERT "Error in unregister_chrdev: %d\n", ret);
+	unregister_chrdev(Major, DEVICE_NAME);
+	//if (ret < 0)
+	//	printk(KERN_ALERT "Error in unregister_chrdev: %d\n", ret);
 }
 
 /*

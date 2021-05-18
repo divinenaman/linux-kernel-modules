@@ -1,0 +1,1 @@
+cmd_/home/naman/linux-kernel-modules/character-devices/kit.mod := { echo  /home/naman/linux-kernel-modules/character-devices/kit.o; echo; } > /home/naman/linux-kernel-modules/character-devices/kit.mod
