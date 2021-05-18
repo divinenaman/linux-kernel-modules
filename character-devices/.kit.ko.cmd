@@ -1,1 +1,0 @@
-cmd_/home/naman/linux-kernel-modules/character-devices/kit.ko := ld -r -m elf_x86_64  -z max-page-size=0x200000  --build-id  -T ./scripts/module-common.lds -o /home/naman/linux-kernel-modules/character-devices/kit.ko /home/naman/linux-kernel-modules/character-devices/kit.o /home/naman/linux-kernel-modules/character-devices/kit.mod.o;  true
